@@ -23,6 +23,7 @@ int main(int ac, char*tokens[])
 		{
 			execute_out();
 			wait_pids();
+			cmd_count = 0;
 		}
 		i++;
 	}

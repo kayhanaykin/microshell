@@ -3,22 +3,23 @@
 void prepare_cmd(char *tokens[], int i)
 {
 	static int 	start;
-	int 		cmd_count;
 	int 		j;
 	int			k;
+	int			token_count;
 
-	cmd_count = 0;
+	token_count = 0;
 	if (start == 0)
 		start = 1;
 	j = start;
 	while (start++ < i)
-		cmd_count++;
+		token_count++;
 	start++;
-	cmd = malloc(++cmd_count * sizeof(char *));
+	cmd = malloc(++token_count * sizeof(char *));
 	k = 0;
 	while (j < i)
 		cmd[k++] = tokens[j++];
-	cmd[k] = "\0";
+	cmd[k] = NULL;
+	cmd_count++;
 }
 
 void	close_pipes(int *fd1, int *fd2)
