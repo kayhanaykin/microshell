@@ -1,49 +1,14 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <stdio.h>
+#include "header.h"
 
-int pid;
-int fd1[2];
-int fd2[2];
-char **cmd;
-int cmd_count = 0;
-
-void prepare_cmd(char *tokens[], int i)
+void execute_cmd(void)
 {
-	static int 	start;
-	int 		cmd_count;
-	int 		j;
-	int			k;
-
-	cmd_count = 0;
-	if (start == 0)
-		start = 1;
-	j = start;
-	while (start++ < i)
+	if (cmd_count == 0)
+	{
 		cmd_count++;
-	start++;
-	cmd = malloc(++cmd_count * sizeof(char *));
-	k = 0;
-	while (j < i)
-		cmd[k++] = tokens[j++];
-	cmd[k] = "\0";
-}
-
-void	close_pipes(int *fd1, int *fd2)
-{
-	if (fd1)
-	{
-		close(fd1[0]);
-		close(fd1[1]);
+		exec_first_cmd();
 	}
-	if (fd2)
-	{
-		close(fd2[0]);
-		close(fd2[1]);
-	}
+	exec_cmd();
 }
-
 void	exec_first_cmd()
 {
 	pipe(fd1);
@@ -86,15 +51,6 @@ void	exec_cmd()
 	}
 }
 
-void execute_cmd(void)
-{
-	if (cmd_count == 0)
-	{
-		cmd_count++;
-		exec_first_cmd();
-	}
-	exec_cmd();
-}
 void	execute_out()
 {
 	char *cmd_out[] = { "/bin/cat", NULL };
@@ -131,30 +87,4 @@ void	wait_pids()
 	{
 		waitpid(-1, NULL, 0);
 	}
-}
-
-int main(int ac, char*tokens[])
-{
-	int i;
-
-	(void)ac;
-	i = 0;
-	while (tokens[i])
-	{
-		// printf("test1%d, %s\n", i, tokens[i]);
-		if (tokens[i][0] == '|')
-		{
-			prepare_cmd(tokens, i);
-			execute_cmd();
-		}
-		if (tokens[i][0] == ';')
-		{
-			execute_out();
-			wait_pids();
-		}
-		i++;
-	}
-	execute_out();
-	wait_pids();
-	return (0);
 }

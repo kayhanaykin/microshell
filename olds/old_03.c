@@ -81,11 +81,11 @@ int main()
 	char *cmd5[] = { "/usr/bin/wc", NULL };
 
 	// printf("test1\n");
-	exec_first_cmd(cmd1);
-	exec_cmd(pid, fd1, fd2, cmd2);
-	exec_cmd(pid, fd2, fd1, cmd3);
-	exec_cmd(pid, fd1, fd2, cmd4);
-	exec_cmd(pid, fd2, fd1, cmd5);
+	exec_first_cmd(cmd1);			//pipe fd1
+	exec_cmd(pid, fd1, fd2, cmd2);	//pipe fd2
+	exec_cmd(pid, fd2, fd1, cmd3);	//pipe fd1
+	exec_cmd(pid, fd1, fd2, cmd4);	//pipe fd2
+	exec_cmd(pid, fd2, fd1, cmd5);	//pipe fd1
 	exec_cmd_out(pid, fd1, NULL);
 	wait_pids();
     return 0;

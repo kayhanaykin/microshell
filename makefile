@@ -1,4 +1,4 @@
 all:
 	clear
-	gcc -Wall -Wextra -Werror main13.c
-	./a.out
+	gcc -Wall -Wextra -Werror helper.c exec.c main.c
+	./a.out ls
