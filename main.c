@@ -25,6 +25,12 @@ int main(int ac, char*tokens[])
 			wait_pids();
 			cmd_count = 0;
 		}
+		if (strcmp (tokens[i], "cd") == 0 && cmd_count == 0)
+		{printf("%s\n", tokens[i + 1]);
+			// cd_check_args();
+			chdir(tokens[i + 1]);
+			i++;
+		}
 		i++;
 	}
 	prepare_cmd(tokens, i);

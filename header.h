@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <stdio.h>
+# include <string.h>
 
 extern int pid;
 extern int fd1[2];

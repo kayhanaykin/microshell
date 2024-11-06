@@ -13,7 +13,7 @@ void	exec_first_cmd()
 	pipe(fd1);
 	pid = fork();
 	if (pid == 0)
-	{printf("%s\n", cmd[0]);
+	{
 		dup2(fd1[1], 1);
 		close_pipes(fd1, NULL);
 		execvp(cmd[0], cmd);
