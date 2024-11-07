@@ -6,7 +6,7 @@ int fd2[2];
 char **cmd;
 int cmd_count = 0;
 
-int main(int ac, char*tokens[])
+int main(int ac, char **tokens)
 {
 	int i;
 
@@ -21,13 +21,16 @@ int main(int ac, char*tokens[])
 		}
 		if (tokens[i][0] == ';')
 		{
+			prepare_cmd(tokens, i);
+			execute_cmd();
 			execute_out();
 			wait_pids();
 			cmd_count = 0;
 		}
 		if (strcmp (tokens[i], "cd") == 0 && cmd_count == 0)
-		{printf("%s\n", tokens[i + 1]);
-			// cd_check_args();
+		{
+			cd_check_args(tokens + i);
+			printf("%s\n", tokens[i + 1]);
 			chdir(tokens[i + 1]);
 			i++;
 		}

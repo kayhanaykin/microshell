@@ -16,7 +16,7 @@ void	exec_first_cmd()
 	{
 		dup2(fd1[1], 1);
 		close_pipes(fd1, NULL);
-		execvp(cmd[0], cmd);
+		execve(cmd[0], cmd, environ);
 	}
 }
 
@@ -31,7 +31,7 @@ void	exec_cmd()
 			dup2(fd1[0], 0);
 			dup2(fd2[1], 1);
 			close_pipes(fd1, fd2);
-			execvp(cmd[0], cmd);
+			execve(cmd[0], cmd, environ);
 		}
 		close_pipes(fd1, NULL);
 	}
@@ -44,7 +44,7 @@ void	exec_cmd()
 			dup2(fd2[0], 0);
 			dup2(fd1[1], 1);
 			close_pipes(fd1, fd2);
-			execvp(cmd[0], cmd);
+			execve(cmd[0], cmd, environ);
 		}
 		close_pipes(NULL, fd2);
 	}
@@ -62,7 +62,7 @@ void	execute_out()
 		{
 			dup2(fd1[0], 0);
 			close_pipes(fd1, NULL);
-			execvp(cmd_out[0], cmd_out);
+			execve(cmd_out[0], cmd_out, environ);
 		}
 		close_pipes(fd1, NULL);
 	}
@@ -74,7 +74,7 @@ void	execute_out()
 		{
 			dup2(fd2[0], 0);
 			close_pipes(NULL, fd2);
-			execvp(cmd_out[0], cmd_out);
+			execve(cmd_out[0], cmd_out, environ);
 		}
 		close_pipes(NULL, fd2);
 	}

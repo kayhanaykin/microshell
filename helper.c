@@ -35,3 +35,17 @@ void	close_pipes(int *fd1, int *fd2)
 		close(fd2[1]);
 	}
 }
+
+void	cd_check_args(char **token)
+{
+	int i;
+
+	i =  1;
+	while(token + i && !strcmp(token[i], "|") && !strcmp(token[i], ";"))
+		i++;
+	if (i != 1)
+	{
+		write(2, "error: cd: bad arguments", 24);
+		exit (1);
+	}
+}

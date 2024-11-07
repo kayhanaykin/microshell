@@ -4,12 +4,14 @@
 # include <stdio.h>
 # include <string.h>
 
-int main(int ac, char*tokens[]) 
+int main(int ac, char*tokens[], char *env[]) 
 {
-	char *cmd[2];
+	char *cmd[3];
 
-	cmd[0] = strdup(tokens[1]);
+	(void)tokens;
+	(void)ac;
+	cmd[0] = strdup("/bin/ls");
 	cmd[1] = NULL;
- 	execvp(cmd[0], cmd);
+ 	execve(cmd[0], cmd, env);
     return 0;
 }
