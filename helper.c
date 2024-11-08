@@ -13,7 +13,6 @@ void prepare_cmd(char *tokens[], int i)
 	j = start;
 	while (start++ < i)
 		token_count++;
-	start++;
 	cmd = malloc(++token_count * sizeof(char *));
 	k = 0;
 	while (j < i)

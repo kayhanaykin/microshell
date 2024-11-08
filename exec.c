@@ -64,6 +64,7 @@ void	execute_out()
 			close_pipes(fd1, NULL);
 			execve(cmd_out[0], cmd_out, environ);
 		}
+		write(1, "\n", 1);
 		close_pipes(fd1, NULL);
 	}
 	else

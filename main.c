@@ -24,7 +24,7 @@ int main(int ac, char **tokens)
 			prepare_cmd(tokens, i);
 			execute_cmd();
 			execute_out();
-			wait_pids();
+			//wait_pids();
 			cmd_count = 0;
 		}
 		if (strcmp (tokens[i], "cd") == 0 && cmd_count == 0)
@@ -37,6 +37,7 @@ int main(int ac, char **tokens)
 		i++;
 	}
 	prepare_cmd(tokens, i);
+	//printf("-%s\n", cmd[0]);
 	execute_cmd();
 	execute_out();
 	wait_pids();
