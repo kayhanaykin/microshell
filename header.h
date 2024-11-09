@@ -13,6 +13,7 @@ extern int fd2[2];
 extern char **cmd;
 extern int cmd_count;
 extern char **environ;
+extern int start;
 
 void	prepare_cmd(char *tokens[], int i);
 void	close_pipes(int *fd1, int *fd2);
@@ -22,5 +23,6 @@ void	execute_cmd(void);
 void	execute_out();
 void	wait_pids();
 void	cd_check_args(char **token);
+int		ft_strlen(char *str);
 
 #endif

@@ -1,4 +1,4 @@
-NAME = old_06.c
+NAME = old_07.c
 
 all:
 	rm -rf ./a.out

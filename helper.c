@@ -2,7 +2,6 @@
 
 void prepare_cmd(char *tokens[], int i)
 {
-	static int 	start;
 	int 		j;
 	int			k;
 	int			token_count;
@@ -11,8 +10,11 @@ void prepare_cmd(char *tokens[], int i)
 	if (start == 0)
 		start = 1;
 	j = start;
-	while (start++ < i)
+	while (start < i)
+	{
 		token_count++;
+		start++;
+	}
 	start++;
 	cmd = malloc(++token_count * sizeof(char *));
 	k = 0;
@@ -45,7 +47,17 @@ void	cd_check_args(char **token)
 		i++;
 	if (i != 1)
 	{
-		write(2, "error: cd: bad arguments", 24);
+		write(2, "error: cd: bad arguments\n", 25);
 		exit (1);
 	}
+}
+
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (*str++)
+		i++;
+	return (i);
 }
