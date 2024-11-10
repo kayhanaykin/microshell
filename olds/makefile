@@ -1,4 +1,4 @@
-NAME = old_07.c
+NAME = second_attempt.c
 
 all:
 	rm -rf ./a.out
