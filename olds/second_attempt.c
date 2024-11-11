@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <errno.h> //errno
 #include <string.h> //strcmp
+#include <sys/wait.h> //waitpid
+#include <sys/types.h>
 
 void 	exec();
 void 	exec_first();
@@ -23,6 +25,7 @@ int 			pid = 0;
 extern	char 	**environ;
 char			**cmd;
 char			**arg_ptr;
+int				forked_count = 0;
 
 int main(int ac, char *args[])
 {
@@ -57,6 +60,7 @@ void exec_first()
 	pid = fork();
 	if (pid == -1)
 		exit_handler("error: 2fatal", NULL, errno);
+	forked_count++;
 	if (pid == 0)
 	{
 		if (dup2(fd1[1], STDOUT_FILENO) == -1)
@@ -81,6 +85,7 @@ void exec()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 5fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (dup2(fd2[0], STDIN_FILENO) == -1)
@@ -100,6 +105,7 @@ void exec()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 9fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (dup2(fd1[0], STDIN_FILENO) == -1)
@@ -124,6 +130,7 @@ void	exec_out()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 12fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (execve(cmd[0], cmd, environ) == -1)
@@ -135,6 +142,7 @@ void	exec_out()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 13fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (dup2(fd1[0], STDIN_FILENO) == -1)
@@ -150,6 +158,7 @@ void	exec_out()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 14fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (dup2(fd2[0], STDIN_FILENO) == -1)
@@ -165,6 +174,7 @@ void	exec_out()
 		pid = fork();
 		if (pid == -1)
 			exit_handler("error: 16fatal", NULL, errno);
+		forked_count++;
 		if (pid == 0)
 		{
 			if (dup2(fd1[0], STDIN_FILENO) == -1)
@@ -175,6 +185,7 @@ void	exec_out()
 		}
 		close_pipes(fd1, NULL);
 	}
+	cmd_count = 0;
 }
 
 void	close_pipes(int *fd1, int *fd2)
@@ -197,21 +208,24 @@ void	close_pipes(int *fd1, int *fd2)
 
 void	wait_pid()
 {
-	int d;
 	if (pid == 0)
 		return ;
-	while (errno != ECHILD)
+	while (forked_count)
 	{
-		d = waitpid(-1, NULL, 0) 
+		if (waitpid(-1, NULL, 0) == 0)
 			exit_handler("error: 22fatal", NULL, errno);
+		forked_count--;
 	}
 }
 
 void	create_cmd()
 {
 	int	j = 0;
-	if (i == 1)
+	if (i == 1 || strcmp(arg_ptr[i - 1], ";") == 0)
+	{
+		start = i + 1;
 		return ;
+	}
 	cmd = malloc(sizeof(char *) * (i - start + 1));
 	cmd[i - start] = NULL;
 	while (start < i)

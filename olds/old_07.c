@@ -8,7 +8,9 @@ int err(char *str)
 {
     // Loop through each character in the string and write it to stderr
     while (*str)
+	{
         write(2, str++, 1);
+	}
 	return (0);
 }
 
