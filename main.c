@@ -30,6 +30,7 @@ int main(int ac, char*tokens[])
 	prepare_cmd(tokens, i);
 	execute_cmd();
 	execute_out();
+	// printf("before exit\n");
 	wait_pids();
 	return (0);
 }

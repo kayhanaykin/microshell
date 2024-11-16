@@ -4,8 +4,10 @@ void execute_cmd(void)
 {
 	if (cmd_count == 1)
 	{
+		// printf("first cmd\n");
 		exec_first_cmd();
 	}
+	// printf("other cmds, cmd[0]:%s\n", cmd[0]);
 	exec_cmd();
 }
 void	exec_first_cmd()
@@ -13,7 +15,7 @@ void	exec_first_cmd()
 	pipe(fd1);
 	pid = fork();
 	if (pid == 0)
-	{printf("%s\n", cmd[0]);
+	{
 		dup2(fd1[1], 1);
 		close_pipes(fd1, NULL);
 		execvp(cmd[0], cmd);
