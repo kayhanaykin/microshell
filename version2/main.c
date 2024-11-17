@@ -18,7 +18,7 @@ int	main(int ac, char *arg[], char *env[])
 	if (ac == 1)
 		return (0);
 	while (1)
-	{	
+	{
 		if (arg[i] == NULL || strcmp(arg[i], ";") == 0)
 		{
 			exec_out();
@@ -30,11 +30,11 @@ int	main(int ac, char *arg[], char *env[])
 			exec_pipe();
 		}
 		else if (strcmp(arg[i], "cd") == 0)
-		{
-			exec_cd();
+		{ 
+			exec_cd(); 
 		}
 		i++;
 	}
 }
 
-// printf("test i:%d, arg[i]:%s\n", i, arg[i]);
+// printf("test i:%d, arg[i]:%s\n", i, arg[i]);mak

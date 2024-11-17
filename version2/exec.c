@@ -73,6 +73,7 @@ void	exec_out(void)
 			close_pipes(fd1, NULL);
 			execve(cmd[0], cmd, env_ptr);
 		}
+		
 		close_pipes(fd1, NULL);
 	}
 	else if (cmd_count % 2 == 1)
@@ -113,3 +114,4 @@ static void	create_cmd()
 
 // printf("test%s, %s\n", cmd[0], cmd[1]);
 // printf("%d", i);
+// printf("i:%d, cmd[0];%s, cmd[1]:%s, cmd_count:%d, fork_count:%d\n", i, cmd[0], cmd[1], cmd_count, fork_count);

@@ -35,10 +35,10 @@ static int next_check()
 	{
 		j++;
 	}
-	if (strcmp(arg_ptr[i + j], "|") == 0)
+	if (arg_ptr[i + j] != NULL && strcmp(arg_ptr[i + j], "|") == 0)
 		return (1);
 	if (j == 1)
-		return (1);
+		return (2);
 	else if ((j - 1) == 1)
 		return (0);
 	else

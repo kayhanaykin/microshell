@@ -18,6 +18,7 @@ void	wait_pid()
 {
 	while(fork_count--)
 		waitpid(-1, NULL, 0);
+	fork_count = 0;
 }
 
 static int ft_strlen(char *str);
