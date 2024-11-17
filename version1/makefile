@@ -6,7 +6,6 @@ all:
 	./microshell /bin/echo hi
 
 2:
-	echo hi | cat -e
 	ulimit -n 7; ./microshell /bin/ls -laR "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e \
 "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e \
 "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e \
@@ -18,3 +17,7 @@ all:
 "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e \
 "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e \
 "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e "|" /usr/bin/cat -e 
+
+3:
+	cd
+	./minishell cd

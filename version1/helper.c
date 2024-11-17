@@ -23,7 +23,6 @@ void prepare_cmd(char *tokens[], int i)
 		cmd[k++] = tokens[j++];
 	cmd[k] = NULL;
 	cmd_count++;
-	printf("cmd[0]: %s, i:%d, start:%d\n", cmd[0], i, start);
 }
 
 void	close_pipes(int *fd1, int *fd2)
@@ -39,3 +38,6 @@ void	close_pipes(int *fd1, int *fd2)
 		close(fd2[1]);
 	}
 }
+
+
+// printf("cmd[0]: %s, i:%d, start:%d\n", cmd[0], i, start);

@@ -4,10 +4,8 @@ void execute_cmd(void)
 {
 	if (cmd_count == 1)
 	{
-		// printf("first cmd\n");
 		exec_first_cmd();
 	}
-	// printf("other cmds, cmd[0]:%s\n", cmd[0]);
 	exec_cmd();
 }
 void	exec_first_cmd()
