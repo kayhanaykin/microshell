@@ -6,7 +6,6 @@
 # include <unistd.h> //fork, waitpid, close, pipe, chdir, execve, write
 # include <sys/wait.h> //waitpid
 # include <stdlib.h> //malloc
-# include <errno.h>
 
 extern char			**arg_ptr;
 extern char			**env_ptr;

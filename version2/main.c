@@ -30,11 +30,12 @@ int	main(int ac, char *arg[], char *env[])
 			exec_pipe();
 		}
 		else if (strcmp(arg[i], "cd") == 0)
-		{ 
+		{
 			exec_cd(); 
 		}
 		i++;
 	}
 }
+		// {printf("i:%d, cmd[0];%s, cmd[1]:%s, cmd_count:%d, fork_count:%d\n", i, cmd[0], cmd[1], cmd_count, fork_count);
 
-// printf("test i:%d, arg[i]:%s\n", i, arg[i]);mak
+// printf("test i:%d, arg[i]:%s\n", i, arg[i]);

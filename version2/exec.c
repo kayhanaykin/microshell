@@ -49,6 +49,8 @@ void	exec_pipe(void)
 
 void	exec_out(void)
 {
+	if (strcmp(arg_ptr[i - 1], "cd") == 0)
+		return ;
 	create_cmd();
 	if (cmd_count == 0)
 	{

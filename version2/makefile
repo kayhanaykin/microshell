@@ -59,3 +59,15 @@ github:
 
 16:
 	./microshell cd
+17: 
+	./microshell cd ..
+18: 
+	./microshell cd ../dfdf
+19:
+	./microshell cd ../dfdf "|" /bin/echo hi
+20:
+	./microshell /bin/ls ";" cd ../dfdf "|" /bin/echo hi
+21:
+	./microshell cd ../dfdf kkk jj
+22:
+	./microshell cd ";"

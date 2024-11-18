@@ -29,14 +29,14 @@ void	error_handler(char *str, char *str2, int err)
 	write(2, str2, ft_strlen(str2));
 	write(2, "\n", 1);
 	if (err)
-		exit(errno);
+		exit(1);
 }
 
 static int ft_strlen(char *str)
 {
 	int i = 0;
 
-	while(str[i])
+	while(str && str[i])
 		i++;
 	return (i);
 }
