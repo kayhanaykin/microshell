@@ -7,41 +7,58 @@ void	exec_pipe(void)
 	create_cmd();
 	if (cmd_count == 1)
 	{
-		pipe(fd1);
+		if (pipe(fd1) == -1)
+			error_handler("error: fatal", NULL, 1);
 		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);
 		fork_count++;
 		if (pid == 0)
 		{
-			dup2(fd1[1], STDOUT_FILENO);
+			if (dup2(fd1[1], STDOUT_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
 			close_pipes(fd1, NULL);
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 	}
 	else if (cmd_count % 2 == 0)
 	{
-		pipe(fd2);
+		if (pipe(fd2) == -1)
+			error_handler("error: fatal", NULL, 1);
 		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);
 		fork_count++;
 		if (pid == 0)
 		{
-			dup2(fd1[0], STDIN_FILENO);
-			dup2(fd2[1], STDOUT_FILENO);
+			if (dup2(fd1[0], STDIN_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
+			if (dup2(fd2[1], STDOUT_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
 			close_pipes(fd1, fd2);
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 		close_pipes(fd1, NULL);
 	}
 	else if (cmd_count % 2 == 1)
 	{
-		pipe(fd1);
-		pid = fork();		
+		if (pipe(fd1) == -1)
+			error_handler("error: fatal", NULL, 1);
+		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);		
 		fork_count++;
 		if (pid == 0)
 		{
-			dup2(fd2[0], STDIN_FILENO);
-			dup2(fd1[1], STDOUT_FILENO);
+			if (dup2(fd2[0], STDIN_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
+			if (dup2(fd1[1], STDOUT_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
 			close_pipes(fd1, fd2);
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 		close_pipes(NULL, fd2);
 	}
@@ -51,6 +68,8 @@ void	exec_out(void)
 {
 	if (strcmp(arg_ptr[i - 1], "cd") == 0)
 		return ;
+	if (i >= 2 && arg_ptr[i - 2] && strcmp(arg_ptr[i - 2], "cd") == 0)
+		return ;
 	create_cmd();
 	if (cmd_count == 0)
 	{
@@ -59,21 +78,28 @@ void	exec_out(void)
 	if (cmd_count == 1)
 	{
 		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);
 		fork_count++;
 		if (pid == 0)
 		{	
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 	}
 	else if (cmd_count % 2 == 0)
 	{
 		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);
 		fork_count++;
 		if (pid == 0)
 		{
-			dup2(fd1[0], STDIN_FILENO);
+			if (dup2(fd1[0], STDIN_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
 			close_pipes(fd1, NULL);
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 		
 		close_pipes(fd1, NULL);
@@ -81,12 +107,16 @@ void	exec_out(void)
 	else if (cmd_count % 2 == 1)
 	{
 		pid = fork();
+		if (pid == -1)
+			error_handler("error: fatal", NULL, 1);
 		fork_count++;
 		if (pid == 0)
 		{
-			dup2(fd2[0], STDIN_FILENO);
+			if (dup2(fd2[0], STDIN_FILENO) == -1)
+				error_handler("error: fatal", NULL, 1);
 			close_pipes(NULL, fd2);
-			execve(cmd[0], cmd, env_ptr);
+			if (execve(cmd[0], cmd, env_ptr) == -1)
+				error_handler("error: cannot execute ", cmd[0], 1);
 		}
 		close_pipes(NULL, fd2);
 	}
