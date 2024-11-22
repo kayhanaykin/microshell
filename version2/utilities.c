@@ -18,7 +18,7 @@ void	wait_pid()
 {
 	while(fork_count--)
 	{
-		if (waitpid(-1, NULL, 0) == -1)
+		if (waitpid(-1, &status, 0) == -1)
 			error_handler("error: fatal", NULL, 1);
 	}
 	fork_count = 0;

@@ -130,6 +130,7 @@ static void	create_cmd()
 
 	if (i == 1 || strcmp(arg_ptr[i - 1], ";") == 0)
 	{
+		start = i + 1;
 		return ;
 	}
 	cmd = malloc (sizeof(char *) * (i - start + 1));

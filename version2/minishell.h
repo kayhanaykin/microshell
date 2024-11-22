@@ -17,6 +17,7 @@ extern int			fd2[2];
 extern int			pid;
 extern char			**cmd; 
 extern int			start;
+extern int			status;
 
 void	exec_cd();
 void	exec_pipe(void);

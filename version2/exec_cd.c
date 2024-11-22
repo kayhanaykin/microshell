@@ -5,13 +5,17 @@ static int	next_check();
 
 void	exec_cd()
 {
-	if (prev_check() == 1 || next_check() == 1) //on arka sorun checki
+	int next_ret;
+
+	next_ret = next_check();
+	if (prev_check() == 1 || next_ret == 1) //on arka sorun checki
 	{
 		return ;
 	}
-	else if (next_check() == 2)
+	if (next_ret == 2)
 	{
-		error_handler("error: cd: bad arguments", NULL, 1);
+		error_handler("error: cd: bad arguments", NULL, 0);
+		start += 2;
 	}
 	else 
 	{
@@ -22,9 +26,9 @@ void	exec_cd()
 			else
 				error_handler("error: cd: cannot change directory to ", arg_ptr[i + 1], 0);
 			i = i + 2;
-			start = i;
-			start++;
 		}
+		start++;
+		start++;
 	}
 }
 
@@ -42,13 +46,14 @@ static int next_check() //arg sayisi yanlissa, pipe geliyosa sonrasinda
 			&& strcmp(arg_ptr[i + j], "|") != 0)
 	{
 		j++;
+		start++;
 	}
 	// if (arg_ptr[i + j] != NULL && strcmp(arg_ptr[i + j], "|") == 0) // cd directory | checki
 	// 	return (1);
 
 	if (j == 1)   //argsiz
 		return (2);
-	else if ((j - 1) == 1) //bir argli
+	else if (j == 2) //bir argli
 		return (0);
 	else		//çok argli
 		return (2);
